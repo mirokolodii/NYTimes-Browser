@@ -41,7 +41,7 @@ public class MostEmailedFragment extends Fragment {
 
     private void listArticles(View view) {
         String[] testStringArray = {"title1", "title2", "title3"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.context,
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.context,
                 android.R.layout.simple_list_item_1, testStringArray);
         ListView listView = view.findViewById(R.id.most_emailed_list_view);
         listView.setAdapter(adapter);

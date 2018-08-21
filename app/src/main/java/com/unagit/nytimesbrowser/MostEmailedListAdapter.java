@@ -5,7 +5,7 @@ import android.widget.ArrayAdapter;
 
 public class MostEmailedListAdapter extends ArrayAdapter{
     MostEmailedListAdapter(Context context) {
-        super(context, );
+        super(context, R.layout.list_view_article);
 
     }
 }

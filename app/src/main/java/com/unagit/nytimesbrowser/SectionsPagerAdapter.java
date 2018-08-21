@@ -17,7 +17,7 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case Constants.Tabs.MOST_EMAILED_TAB:
-                return new Fragment();
+                return new MostEmailedFragment();
 
             case Constants.Tabs.MOST_SHARED_TAB:
                 return new Fragment();
