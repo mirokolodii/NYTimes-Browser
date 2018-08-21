@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(mViewPager);
         // Each tab: remove title text and set icons
-        setTabTitles();
+        setTabTitles(tabLayout);
 
         /*
          * Listener for TabLayout tabs selection changes
