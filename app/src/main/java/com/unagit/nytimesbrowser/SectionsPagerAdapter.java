@@ -12,15 +12,19 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
     SectionsPagerAdapter(FragmentManager fm) {
         super(fm);
     }
+
     @Override
     public Fragment getItem(int position) {
         switch (position) {
             case Constants.Tabs.MOST_EMAILED_TAB:
-                break;
+                return new Fragment();
+
             case Constants.Tabs.MOST_SHARED_TAB:
-                break;
+                return new Fragment();
+
             case Constants.Tabs.MOST_VIEWED_TAB:
-                break;
+                return new Fragment();
+
             default:
                 Log.e(this.getClass().getName(), "PagerAdapter returned empty fragment, which means unhandled case.");
                 return new Fragment();

@@ -25,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
      */
     private void setupViewPagerAndTabLayout() {
         // PagerAdapter for ViewPager
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), myBluetoothManager);
+        SectionsPagerAdapter mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 
         // Set up the ViewPager with PagerAdapter.
-        ViewPager mViewPager = (ViewPager) findViewById(R.id.container);
+        ViewPager mViewPager = findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         // Custom animated transformation between tabs
