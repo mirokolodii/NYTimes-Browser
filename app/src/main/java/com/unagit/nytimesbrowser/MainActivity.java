@@ -4,7 +4,11 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.TableLayout;
+import android.util.Log;
+
+import com.unagit.nytimesbrowser.helpers.Constants;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -35,10 +39,10 @@ public class MainActivity extends AppCompatActivity {
 //        mViewPager.setPageTransformer(true, new ZoomOutPageTransformer());
 
         //Setup a TabLayout to work with ViewPager (get tabs from it).
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        TabLayout tabLayout = findViewById(R.id.tab_layout);
         tabLayout.setupWithViewPager(mViewPager);
         // Each tab: remove title text and set icons
-//        setTabIcons();
+        setTabTitles();
 
         /*
          * Listener for TabLayout tabs selection changes
@@ -59,5 +63,27 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    /**
+     * Setup titles for tabs in tabLayout.
+     * @param tabLayout use tabs from it.
+     */
+    private void setTabTitles(TabLayout tabLayout) {
+        ArrayList<String> titles = new ArrayList<>();
+        titles.add(Constants.Tabs.MOST_EMAILED_TITLE);
+        titles.add(Constants.Tabs.MOST_SHARED_TITLE);
+        titles.add(Constants.Tabs.MOST_VIEWED_TITLE);
+        for (int pos = 0; pos < Constants.Tabs.TABS_COUNT; pos++) {
+            try {
+                tabLayout
+                        .getTabAt(pos)
+                        .setText(titles.get(pos));
+
+            } catch (NullPointerException e) {
+                Log.e(this.getClass().getName(), e.getMessage());
+            }
+        }
+
     }
 }
