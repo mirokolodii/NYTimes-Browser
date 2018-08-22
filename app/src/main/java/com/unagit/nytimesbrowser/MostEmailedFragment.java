@@ -44,8 +44,11 @@ public class MostEmailedFragment extends Fragment {
 
     private void listArticles(View view) {
 //        Log.d(LOG_TAG, testStringArray.toString());
-
-        MostEmailedListAdapter adapter = new MostEmailedListAdapter(this.context);
+        ArrayList<Article> articles = new ArrayList<>();
+        articles.add(new Article("title1", "url1"));
+        articles.add(new Article("title2", "url2"));
+        articles.add(new Article("title3", "url3"));
+        MostEmailedListAdapter adapter = new MostEmailedListAdapter(this.context, articles);
         ListView listView = view.findViewById(R.id.most_emailed_list_view);
         listView.setAdapter(adapter);
     }

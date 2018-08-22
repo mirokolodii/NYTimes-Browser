@@ -1,16 +1,16 @@
 package com.unagit.nytimesbrowser;
 
 public class Article {
-    private String name;
+    private String title;
     private String url;
 
-    Article(String name, String url) {
-        this.name = name;
+    Article(String title, String url) {
+        this.title = title;
         this.url = url;
     }
 
-    public String getName() {
-        return this.name;
+    public String getTitle() {
+        return this.title;
     }
 
     public String getUrl() {
