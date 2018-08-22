@@ -1,10 +1,10 @@
-package com.unagit.nytimesbrowser;
+package com.unagit.nytimesbrowser.Data;
 
 public class Article {
     private String title;
     private String url;
 
-    Article(String title, String url) {
+    public Article(String title, String url) {
         this.title = title;
         this.url = url;
     }
