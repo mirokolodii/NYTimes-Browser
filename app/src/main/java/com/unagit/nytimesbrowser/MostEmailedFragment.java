@@ -43,27 +43,10 @@ public class MostEmailedFragment extends Fragment {
     }
 
     private void listArticles(View view) {
-//        String[] testStringArray = {"title1", "title2", "title3"};
-//        ArrayList<String> testStringArray = new ArrayList<>();
-//        testStringArray.add("title1");
-//        testStringArray.add("title2");
-//        testStringArray.add("title3");
-        String[] testStringArray = new String[] {
-                "Android List View",
-                "Adapter implementation",
-                "Simple List View In Android",
-                "Create List View Android",
-                "Android Example",
-                "List View Source Code",
-                "List View Array Adapter",
-                "Android Example List View"
-        };
-        Log.d(LOG_TAG, testStringArray.toString());
+//        Log.d(LOG_TAG, testStringArray.toString());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.context,
-                android.R.layout.simple_list_item_1, testStringArray);
+        MostEmailedListAdapter adapter = new MostEmailedListAdapter(this.context);
         ListView listView = view.findViewById(R.id.most_emailed_list_view);
         listView.setAdapter(adapter);
-//        testStringArray.add("title4");
     }
 }
