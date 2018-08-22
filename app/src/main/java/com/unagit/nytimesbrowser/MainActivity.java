@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.unagit.nytimesbrowser.Data.DataController;
 import com.unagit.nytimesbrowser.helpers.Constants;
 
 import java.util.ArrayList;
@@ -17,7 +18,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        String URL = "https://api.nytimes.com/svc/mostpopular/v2/mostemailed/all-sections/30.json?api-key=f9e16b9b85ae461e82094903d9676078";
+        DataController controller = new DataController();
+        controller.fetchData();
 
         // Set tabs and show them on screen, using ViewPager.
         setupViewPagerAndTabLayout();

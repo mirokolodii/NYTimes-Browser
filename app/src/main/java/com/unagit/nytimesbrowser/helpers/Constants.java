@@ -1,5 +1,9 @@
 package com.unagit.nytimesbrowser.helpers;
 
+import android.os.Build;
+
+import com.unagit.nytimesbrowser.BuildConfig;
+
 /**
  * Global constants, used for entire app.
  */
@@ -19,6 +23,11 @@ public final class Constants {
         public static final String MOST_EMAILED_TITLE = "Most Emailed";
         public static final String MOST_SHARED_TITLE = "Most Shared";
         public static final String MOST_VIEWED_TITLE = "Most Viewed";
+    }
+
+    public static final class Retrofit {
+        public static final String NYTApiKey = BuildConfig.NYTimesApiKey;
+        public static final String NYTBaseApiUrl = "https://api.nytimes.com/svc/mostpopular/v2/";
     }
 
 }
