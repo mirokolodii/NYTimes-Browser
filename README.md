@@ -13,7 +13,7 @@ Once you get the API key, open the project in Android Studio and follow below st
 
 3. Put a new property with name <i>NYTimesBrowser_API_Key</i> as property name and your API key as property value.
 
-![image](https://user-images.githubusercontent.com/23655108/44476651-b9c6e800-a638-11e8-92ea-af51d17f6f64.png)
+![image](https://user-images.githubusercontent.com/23655108/44519286-df9dcc80-a6cc-11e8-9e9d-c9369072b5ba.png)
 
 Alternatively, you can put API key directly in code. It should be OK for quick local tests, although not recommented for use with remote repositories, as your API key may become known by others.
 Open <a href="https://github.com/mirokolodii/NYTimes-Browser/blob/master/app/src/main/java/com/unagit/nytimesbrowser/helpers/Constants.java">Constants.java</a> file. Locate a sub-class called <i>Retrofit</i> and replace a value of NYTApiKey property with your own API key.
