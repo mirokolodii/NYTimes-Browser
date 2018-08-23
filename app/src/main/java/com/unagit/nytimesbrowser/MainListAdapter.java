@@ -12,21 +12,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.unagit.nytimesbrowser.models.Article;
+
 import java.util.List;
 
 public class MainListAdapter extends ArrayAdapter<Article> {
-        MainListAdapter(Context context, List<Article> articles) {
+    MainListAdapter(Context context, List<Article> articles) {
         super(context, R.layout.list_view_article, articles);
 
-        }
+    }
 
-@NonNull
-@Override
-public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        Article article = getItem(position);
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        final Article article = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_article, parent, false);
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_article, parent, false);
         }
         TextView title = convertView.findViewById(R.id.article_title);
         TextView date = convertView.findViewById(R.id.article_date);
@@ -40,19 +41,26 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
         // Add onClickListeners
         final int pos = position;
         convertView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                        Toast.makeText(getContext(), "Position: " + pos, Toast.LENGTH_SHORT).show();
-                }
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Position: " + pos, Toast.LENGTH_SHORT).show();
+                showArticle(article);
+            }
         });
         img.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                        Toast.makeText(getContext(), "Add position: " + pos + " to favorites", Toast.LENGTH_LONG).show();
-                }
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(getContext(), "Add position: " + pos + " to favorites", Toast.LENGTH_LONG).show();
+            }
         });
 
 
         return convertView;
-        }
-        }
+    }
+
+    private void showArticle(Article article) {
+        // TODO: Open another activity
+
+
+    }
+}
