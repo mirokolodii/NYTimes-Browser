@@ -23,22 +23,6 @@ public class SectionsPagerAdapter extends FragmentStatePagerAdapter {
         fragment.setArguments(bundle);
         Log.d(this.getClass().getSimpleName(), "queryType: " + String.valueOf(position));
         return fragment;
-
-//        switch (position) {
-//            case Constants.Tabs.MOST_EMAILED_TAB:
-//
-//
-//            case Constants.Tabs.MOST_SHARED_TAB:
-//                return new Fragment();
-//
-//            case Constants.Tabs.MOST_VIEWED_TAB:
-//                return new Fragment();
-//
-//            default:
-//                Log.e(this.getClass().getName(), "PagerAdapter returned empty fragment, which means unhandled case.");
-//                return new Fragment();
-//
-//        }
     }
 
     @Override

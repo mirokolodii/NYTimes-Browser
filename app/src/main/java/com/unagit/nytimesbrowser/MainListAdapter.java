@@ -7,7 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.unagit.nytimesbrowser.models.Article;
 import java.util.List;
 
@@ -28,9 +31,27 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
         TextView title = convertView.findViewById(R.id.article_title);
         TextView date = convertView.findViewById(R.id.article_date);
         TextView author = convertView.findViewById(R.id.article_author);
+        ImageView img = convertView.findViewById(R.id.image_add_favorite);
+
         title.setText(article.getTitle());
         author.setText(article.getAuthor());
         date.setText(article.getPublishedDate());
+
+        // Add onClickListeners
+        final int pos = position;
+        convertView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        Toast.makeText(getContext(), "Position: " + pos, Toast.LENGTH_SHORT).show();
+                }
+        });
+        img.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                        Toast.makeText(getContext(), "Add position: " + pos + " to favorites", Toast.LENGTH_LONG).show();
+                }
+        });
+
 
         return convertView;
         }
