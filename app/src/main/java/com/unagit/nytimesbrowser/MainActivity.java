@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.unagit.nytimesbrowser.Data.DataController;
+import com.unagit.nytimesbrowser.Data.DataProvider;
+import com.unagit.nytimesbrowser.Data.TestDataProvider;
 import com.unagit.nytimesbrowser.helpers.Constants;
 
 import java.util.ArrayList;
@@ -18,8 +19,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DataController controller = new DataController();
-        controller.fetchData();
+        DataProvider controller = new DataProvider();
+//        controller.fetchData();
+
+        TestDataProvider provider = new TestDataProvider();
+        provider.start();
 
         // Set tabs and show them on screen, using ViewPager.
         setupViewPagerAndTabLayout();

@@ -11,10 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.unagit.nytimesbrowser.Data.Article;
-import com.unagit.nytimesbrowser.Data.DataController;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class MostEmailedFragment extends Fragment {
 
