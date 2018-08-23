@@ -13,7 +13,7 @@ import java.util.List;
 
 public class MainListAdapter extends ArrayAdapter<Article> {
         MainListAdapter(Context context, List<Article> articles) {
-        super(context, R.layout.list_view_article, articles);
+        super(context, R.layout.list_view_article_old, articles);
 
         }
 
@@ -23,7 +23,7 @@ public View getView(int position, @Nullable View convertView, @NonNull ViewGroup
         Article article = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
-        convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_article, parent, false);
+        convertView = LayoutInflater.from(getContext()).inflate(R.layout.list_view_article_old, parent, false);
         }
         TextView title = convertView.findViewById(R.id.article_title);
         TextView url = convertView.findViewById(R.id.article_url);
