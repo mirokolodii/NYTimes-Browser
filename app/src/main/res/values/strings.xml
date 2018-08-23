@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NYTimesBrowser</string>
+    <string name="toolbar_title">NYTimes Articles</string>
+
 </resources>
