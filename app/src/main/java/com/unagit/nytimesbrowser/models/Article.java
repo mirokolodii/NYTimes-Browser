@@ -1,4 +1,4 @@
-package com.unagit.nytimesbrowser.Models;
+package com.unagit.nytimesbrowser.models;
 
 public class Article {
     private String title;

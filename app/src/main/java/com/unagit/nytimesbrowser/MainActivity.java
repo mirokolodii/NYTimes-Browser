@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.unagit.nytimesbrowser.Data.DataProvider;
-import com.unagit.nytimesbrowser.Data.TestDataProvider;
 import com.unagit.nytimesbrowser.helpers.Constants;
 
 import java.util.ArrayList;

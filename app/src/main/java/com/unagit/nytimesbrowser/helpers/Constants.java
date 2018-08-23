@@ -30,4 +30,8 @@ public final class Constants {
         public static final String NYTBaseApiUrl = "https://api.nytimes.com/svc/mostpopular/v2/";
     }
 
+    public static final class Queries {
+        public static final String queryLabel = "queryLabel";
+    }
+
 }

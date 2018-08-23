@@ -1,6 +1,4 @@
-package com.unagit.nytimesbrowser.Models;
-
-import com.unagit.nytimesbrowser.Models.Article;
+package com.unagit.nytimesbrowser.models;
 
 import java.util.List;
 

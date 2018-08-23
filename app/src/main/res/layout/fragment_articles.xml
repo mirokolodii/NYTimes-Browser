@@ -4,10 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="10dp"
-    tools:context="com.unagit.nytimesbrowser.MostEmailedFragment">
+    tools:context="com.unagit.nytimesbrowser.MainFragment">
 
     <ListView
-        android:id="@+id/most_emailed_list_view"
+        android:id="@+id/articles_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
