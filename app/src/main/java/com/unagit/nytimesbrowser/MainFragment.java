@@ -33,6 +33,12 @@ public class MainFragment extends Fragment implements DataProvider.CallbackResul
         super.onAttach(context);
         this.context = context;
 
+        if (getArguments() != null) {
+            queryType = getArguments().getInt(Constants.Queries.queryLabel);
+            Log.d(this.getClass().getSimpleName(), "queryType: " + String.valueOf(queryType));
+        } else {
+            Log.d(this.getClass().getSimpleName(), "Arguments are empty");
+        }
     }
 
     @Override
@@ -44,13 +50,6 @@ public class MainFragment extends Fragment implements DataProvider.CallbackResul
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-        if (getArguments() != null) {
-            queryType = getArguments().getInt(Constants.Queries.queryLabel);
-            Log.d(this.getClass().getSimpleName(), "queryType: " + String.valueOf(queryType));
-        } else {
-            Log.d(this.getClass().getSimpleName(), "Arguments are empty");
-        }
 
         View rootView = inflater.inflate(R.layout.fragment_articles, container, false);
         listArticles(rootView);
