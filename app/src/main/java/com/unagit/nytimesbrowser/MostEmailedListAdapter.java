@@ -9,12 +9,13 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.unagit.nytimesbrowser.Data.Article;
+import com.unagit.nytimesbrowser.Models.Article;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MostEmailedListAdapter extends ArrayAdapter<Article>{
-    MostEmailedListAdapter(Context context, ArrayList<Article> articles) {
+    MostEmailedListAdapter(Context context, List<Article> articles) {
         super(context, R.layout.list_view_article, articles);
 
     }

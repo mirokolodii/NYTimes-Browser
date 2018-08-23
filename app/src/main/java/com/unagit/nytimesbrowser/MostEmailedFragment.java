@@ -10,14 +10,19 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.unagit.nytimesbrowser.Data.Article;
+import com.unagit.nytimesbrowser.Data.DataProvider;
+import com.unagit.nytimesbrowser.Models.Article;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MostEmailedFragment extends Fragment {
+public class MostEmailedFragment extends Fragment implements DataProvider.CallbackResult {
 
     private final String LOG_TAG = this.getClass().getName();
     private Context context;
+//    private List<Article> articles = new ArrayList<>();
+//    private MostEmailedListAdapter adapter;
+    View view;
 
     public MostEmailedFragment() {
         // Required empty public constructor
@@ -44,14 +49,38 @@ public class MostEmailedFragment extends Fragment {
 
     private void listArticles(View view) {
 //        Log.d(LOG_TAG, testStringArray.toString());
-        ArrayList<Article> articles = new ArrayList<>();
-        articles.add(new Article("title1", "url1"));
-        articles.add(new Article("title2", "url2"));
-        articles.add(new Article("title3", "url3"));
-        MostEmailedListAdapter adapter = new MostEmailedListAdapter(this.context, articles);
-        ListView listView = view.findViewById(R.id.most_emailed_list_view);
-        listView.setAdapter(adapter);
 
+//        articles.add(new Article("title1", "url1"));
+//        articles.add(new Article("title2", "url2"));
+//        articles.add(new Article("title3", "url3"));
+//        adapter = new MostEmailedListAdapter(this.context, articles);
+//        ListView listView = view.findViewById(R.id.most_emailed_list_view);
+//        listView.setAdapter(adapter);
+
+        this.view = view;
+        // Get data from provider
+        DataProvider provider = new DataProvider();
+        provider.fetchData(this);
+    }
+
+    @Override
+    public void onCallbackResultsReceived(List<Article> results) {
+//        articles = results;
+//        if(adapter != null) {
+//            adapter.notifyDataSetChanged();
+
+//        }
+
+//        for (int i = 0; i<results.size(); i++) {
+//            articles.add(results.get(i));
+//        }
+//        adapter.notifyDataSetChanged();
+
+        if(view != null) {
+            MostEmailedListAdapter adapter = new MostEmailedListAdapter(this.context, results);
+            ListView listView = view.findViewById(R.id.most_emailed_list_view);
+            listView.setAdapter(adapter);
+        }
 
     }
 }

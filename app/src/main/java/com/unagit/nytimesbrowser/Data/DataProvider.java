@@ -4,11 +4,13 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.unagit.nytimesbrowser.Models.Article;
+import com.unagit.nytimesbrowser.Models.DataWrapper;
 import com.unagit.nytimesbrowser.helpers.Constants;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -17,11 +19,17 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DataProvider implements Callback<DataWrapper> {
 
-    private List<Article> articles;
+    public interface CallbackResult {
+        void onCallbackResultsReceived(List<Article> results);
+    }
+//    private List<Article> articles;
+    private CallbackResult callback;
 
-    public void fetchData() {
+
+    public void fetchData(CallbackResult callback) {
         Log.d(this.getClass().getSimpleName(), "fetchData is triggered");
-//        this.articles = articles;
+
+        this.callback = callback;
 
         Gson gson = new GsonBuilder()
 //                .setLenient()
@@ -34,24 +42,7 @@ public class DataProvider implements Callback<DataWrapper> {
                 .build();
 
         NYTAPIService nytapiService = retrofit.create(NYTAPIService.class);
-
         Call<DataWrapper> call = nytapiService.getMostEmailed(Constants.Retrofit.NYTApiKey);
-
-//        Call<Object> call = nytapiService.getJSON(Constants.Retrofit.NYTApiKey);
-//        call.enqueue(new Callback<Object>() {
-//
-//            @Override
-//            public void onResponse(Call call, Response response) {
-//                Log.d(this.getClass().getSimpleName(), "onResponse");
-//                Log.d(this.getClass().getSimpleName(), new Gson().toJson(response.body()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call call, Throwable t) {
-//                Log.d(this.getClass().getSimpleName(), "onFailure");
-//                Log.d(this.getClass().getSimpleName(), "onFailure: " + t.toString());
-//            }
-//        });
         Log.d(this.getClass().getSimpleName(), call.request().url().toString());
         call.enqueue(this);
     }
@@ -60,11 +51,13 @@ public class DataProvider implements Callback<DataWrapper> {
     public void onResponse(Call<DataWrapper> call, Response<DataWrapper> response) {
         Log.d(this.getClass().getSimpleName(), "onResponse is triggered");
         if (response.isSuccessful()) {
-            DataWrapper changesList = response.body();
-            Log.d(this.getClass().getSimpleName(), changesList.getArticles().toString());
-//            for (int i = 0; i < changesList.size(); i++) {
-//                Log.d(this.getClass().getSimpleName(), changesList.get(i).getTitle());
-//            }
+            DataWrapper dataWrapper = response.body();
+            if(dataWrapper != null && callback != null) {
+                callback.onCallbackResultsReceived(dataWrapper.getArticles());
+            }
+//            Article article = (dataWrapper.getArticles()).get(0);
+//            Log.d(this.getClass().getSimpleName(), article.getTitle());
+
         } else {
             System.out.println(response.errorBody());
         }

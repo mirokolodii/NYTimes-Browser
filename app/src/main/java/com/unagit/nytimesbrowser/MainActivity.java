@@ -19,11 +19,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DataProvider controller = new DataProvider();
-//        controller.fetchData();
+//        DataProvider provider = new DataProvider();
+//        provider.fetchData();
 
-        TestDataProvider provider = new TestDataProvider();
-        provider.start();
+//        TestDataProvider provider = new TestDataProvider();
+//        provider.start();
 
         // Set tabs and show them on screen, using ViewPager.
         setupViewPagerAndTabLayout();
