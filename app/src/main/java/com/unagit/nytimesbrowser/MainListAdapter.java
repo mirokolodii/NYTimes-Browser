@@ -1,6 +1,7 @@
 package com.unagit.nytimesbrowser;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.unagit.nytimesbrowser.helpers.Constants;
 import com.unagit.nytimesbrowser.models.Article;
 
 import java.util.List;
@@ -59,8 +61,8 @@ public class MainListAdapter extends ArrayAdapter<Article> {
     }
 
     private void showArticle(Article article) {
-        // TODO: Open another activity
-
-
+        Intent intent = new Intent(getContext(), ArticleActivity.class);
+        intent.putExtra(Constants.IntentArticleExtras.articleUrl, article.getUrl());
+        getContext().startActivity(intent);
     }
 }

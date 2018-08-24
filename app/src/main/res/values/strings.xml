@@ -2,4 +2,5 @@
     <string name="app_name">NYTimesBrowser</string>
     <string name="toolbar_title">NYTimes Articles</string>
     <string name="favorite_img_desc">Add to favorites image</string>
+    <string name="title_activity_article">Details</string>
 </resources>

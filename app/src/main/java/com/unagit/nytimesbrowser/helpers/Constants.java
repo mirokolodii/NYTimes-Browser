@@ -34,4 +34,8 @@ public final class Constants {
         public static final String queryLabel = "queryLabel";
     }
 
+    public static final class IntentArticleExtras {
+        public static final String articleUrl = "articleUrl";
+    }
+
 }
