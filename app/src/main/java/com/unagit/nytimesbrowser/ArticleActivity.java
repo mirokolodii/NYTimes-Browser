@@ -22,8 +22,13 @@ public class ArticleActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         // Add back button to activity on toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        try {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+            Log.e(this.getClass().getSimpleName(), e.getMessage());
+        }
 
         String articleUrl = getUrl();
         if(articleUrl != null && !articleUrl.isEmpty()) {
@@ -32,8 +37,7 @@ public class ArticleActivity extends AppCompatActivity {
     }
 
     private String getUrl() {
-        String url = this.getIntent().getStringExtra(Constants.IntentArticleExtras.articleUrl);
-        return url;
+        return this.getIntent().getStringExtra(Constants.IntentArticleExtras.articleUrl);
     }
 
     private void showArticle(String url) {
