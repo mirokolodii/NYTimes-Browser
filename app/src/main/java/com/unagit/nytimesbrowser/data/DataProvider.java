@@ -95,6 +95,7 @@ public class DataProvider implements Callback<DataWrapper> {
         showErrorToast();
     }
 
+    //TODO: design a better solution to separate UI from data providers.
     private void showErrorToast() {
         Toast.makeText(this.context, "Unable to get articles due to technical issues.", Toast.LENGTH_SHORT).show();
     }
