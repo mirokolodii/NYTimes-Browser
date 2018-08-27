@@ -4,12 +4,10 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
-import android.provider.SyncStateContract;
-
 import com.unagit.nytimesbrowser.helpers.Constants;
 import com.unagit.nytimesbrowser.models.Article;
 
-@Database(entities = {Article.class}, version = 1)
+@Database(entities = {Article.class}, version = 1, exportSchema = false)
 public abstract class LocalDatabase extends RoomDatabase {
     public abstract ArticleDao articleDao();
 

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.unagit.nytimesbrowser.data.LocalDatabase;
 import com.unagit.nytimesbrowser.helpers.Constants;
 import com.unagit.nytimesbrowser.models.Article;
 
 import java.util.List;
 
 public class MainListAdapter extends ArrayAdapter<Article> {
+
+    final String LOG_TAG = this.getClass().getSimpleName();
     MainListAdapter(Context context, List<Article> articles) {
         super(context, R.layout.list_view_article, articles);
 
@@ -49,10 +53,27 @@ public class MainListAdapter extends ArrayAdapter<Article> {
                 showArticle(article);
             }
         });
+
+        // Add/Remove article to/from favorites
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), "Add position: " + pos + " to favorites", Toast.LENGTH_LONG).show();
+
+                // Test
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        LocalDatabase db = LocalDatabase.getLocalDBInstance(getContext());
+                        db.articleDao().insert(article);
+                        List<Article> favorites = db.articleDao().getFavorites();
+                        for(Article favorite : favorites) {
+                            Log.d("Favorites", favorite.getUrl());
+                        }
+                    }
+                }).start();
+
+
             }
         });
 

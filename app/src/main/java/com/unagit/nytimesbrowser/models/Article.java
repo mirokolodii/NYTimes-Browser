@@ -15,7 +15,7 @@ public class Article {
 
 
     @PrimaryKey
-    private int id;
+    private long id;
 
     @SerializedName("published_date")
     @ColumnInfo(name = "published_date")
@@ -28,7 +28,7 @@ public class Article {
 
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -64,11 +64,7 @@ public class Article {
         this.author = author;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
-    }
-
-    public void generateId() {
-        this.id = getUrl().hashCode();
     }
 }
