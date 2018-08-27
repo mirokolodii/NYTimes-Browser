@@ -38,4 +38,8 @@ public final class Constants {
         public static final String articleUrl = "articleUrl";
     }
 
+    public static final class DB{
+        public static final String localDBName = "localDB";
+    }
+
 }
