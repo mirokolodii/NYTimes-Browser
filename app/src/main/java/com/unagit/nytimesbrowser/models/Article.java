@@ -1,13 +1,24 @@
 package com.unagit.nytimesbrowser.models;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity(tableName = "favorites_table")
 public class Article {
+
     private String title;
     private String url;
 
+
+    @PrimaryKey
+    private int id;
+
     @SerializedName("published_date")
+    @ColumnInfo(name = "published_date")
     private String publishedDate;
 
     @SerializedName("byline")
@@ -15,6 +26,10 @@ public class Article {
 
     public Article() {
 
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getTitle() {
@@ -31,5 +46,29 @@ public class Article {
 
     public String getAuthor() {
         return author;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public void setPublishedDate(String publishedDate) {
+        this.publishedDate = publishedDate;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void generateId() {
+        this.id = getUrl().hashCode();
     }
 }
