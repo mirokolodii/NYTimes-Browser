@@ -73,7 +73,11 @@ public class DataProvider implements Callback<DataWrapper> {
         if (response.isSuccessful()) {
             DataWrapper dataWrapper = response.body();
             if (dataWrapper != null && callback != null) {
-                callback.onCallbackResultsReceived(dataWrapper.getArticles());
+                List<Article> articles= dataWrapper.getArticles();
+                for(Article article : articles) {
+                    article.generateId();
+                }
+                callback.onCallbackResultsReceived(articles);
             } else {
                 showErrorToast();
             }
