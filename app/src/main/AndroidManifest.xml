@@ -23,8 +23,9 @@
             android:name=".ArticleActivity"
             android:label="@string/title_activity_article"
             android:parentActivityName=".MainActivity" />
-            <!--android:theme="@style/AppTheme.NoActionBar" -->
+        <!-- android:theme="@style/AppTheme.NoActionBar" -->
 
+        <activity android:name=".FavoritesActivity"></activity>
     </application>
 
 </manifest>

@@ -1,10 +1,14 @@
 package com.unagit.nytimesbrowser;
 
+import android.content.Intent;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 
 import com.unagit.nytimesbrowser.helpers.Constants;
 
@@ -25,6 +29,23 @@ public class MainActivity extends AppCompatActivity {
 
         // Set tabs and show them on screen, using ViewPager.
         setupViewPagerAndTabLayout();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.activity_main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.fav_menu_btn:
+                launchFavoritesActivity();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     /**
@@ -89,5 +110,9 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+    }
+
+    private void launchFavoritesActivity() {
+        startActivity(new Intent(this, FavoritesActivity.class));
     }
 }
