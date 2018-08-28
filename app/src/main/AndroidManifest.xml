@@ -21,13 +21,14 @@
         </activity>
         <activity
             android:name=".ArticleActivity"
-            android:label="@string/title_activity_article"
-            android:parentActivityName=".MainActivity" />
+            android:label="@string/title_activity_article" />
+            <!--android:parentActivityName=".MainActivity" -->
         <!-- android:theme="@style/AppTheme.NoActionBar" -->
 
-        <activity android:name=".FavoritesActivity"
+        <activity
+            android:name=".FavoritesActivity"
             android:parentActivityName=".MainActivity"
-            android:label="@string/title_activity_favorites"/>
+            android:label="@string/title_activity_favorites" />
     </application>
 
 </manifest>
