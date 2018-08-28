@@ -67,4 +67,8 @@ public class Article {
     public void setId(long id) {
         this.id = id;
     }
+
+    public void generateId() {
+        this.id = this.url.hashCode();
+    }
 }

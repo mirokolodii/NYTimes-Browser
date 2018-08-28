@@ -46,6 +46,7 @@ public class MainListAdapter extends ArrayAdapter<Article> {
 
         // Add onClickListeners
         final int pos = position;
+        final long id = article.getId();
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,7 +59,7 @@ public class MainListAdapter extends ArrayAdapter<Article> {
         img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Add position: " + pos + " to favorites", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Add id: " + id + " to favorites", Toast.LENGTH_SHORT).show();
 
                 // Test
                 new Thread(new Runnable() {
@@ -68,7 +69,7 @@ public class MainListAdapter extends ArrayAdapter<Article> {
                         db.articleDao().insert(article);
                         List<Article> favorites = db.articleDao().getFavorites();
                         for(Article favorite : favorites) {
-                            Log.d("Favorites", favorite.getUrl());
+                            Log.d("Favorites:", favorite.getUrl());
                         }
                     }
                 }).start();
