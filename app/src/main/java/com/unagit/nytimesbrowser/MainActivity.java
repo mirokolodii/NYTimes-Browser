@@ -5,6 +5,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,9 @@ public class MainActivity extends AppCompatActivity {
 //        TestDataProvider provider = new TestDataProvider();
 //        provider.start();
 
+        Toolbar myToolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
+
         // Set tabs and show them on screen, using ViewPager.
         setupViewPagerAndTabLayout();
     }
@@ -43,9 +47,11 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.fav_menu_btn:
                 launchFavoritesActivity();
-                break;
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
-        return super.onOptionsItemSelected(item);
+
     }
 
     /**
