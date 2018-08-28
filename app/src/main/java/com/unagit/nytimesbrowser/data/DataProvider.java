@@ -36,9 +36,9 @@ public class DataProvider implements Callback<DataWrapper> {
         this.callback = callback;
         this.context = context;
 
-        Gson gson = new GsonBuilder()
+//        Gson gson = new GsonBuilder()
 //                .setLenient()
-                .create();
+//                .create();
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.Retrofit.NYTBaseApiUrl)

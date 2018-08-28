@@ -15,8 +15,13 @@ public abstract class LocalDatabase extends RoomDatabase {
 
     public static LocalDatabase getLocalDBInstance(Context context) {
         if (DB_INSTANCE == null) {
-            DB_INSTANCE = Room.databaseBuilder(context, LocalDatabase.class, Constants.DB.localDBName)
-                    .build();
+            synchronized (LocalDatabase.class) {
+                if (DB_INSTANCE == null) {
+                    DB_INSTANCE = Room.databaseBuilder(context, LocalDatabase.class, Constants.DB.localDBName)
+                            .build();
+                }
+            }
+
         }
         return DB_INSTANCE;
     }
