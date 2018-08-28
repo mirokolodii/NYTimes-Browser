@@ -57,7 +57,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_favourite" />
+        app:srcCompat="@drawable/ic_favorite_border" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"

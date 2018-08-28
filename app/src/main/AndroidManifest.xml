@@ -26,7 +26,8 @@
         <!-- android:theme="@style/AppTheme.NoActionBar" -->
 
         <activity android:name=".FavoritesActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".MainActivity"
+            android:label="@string/title_activity_favorites"/>
     </application>
 
 </manifest>
