@@ -18,6 +18,7 @@ public final class Constants {
         public static final int MOST_EMAILED_TAB = 0;
         public static final int MOST_SHARED_TAB = 1;
         public static final int MOST_VIEWED_TAB = 2;
+        public static final int FAVORITES_TAB = 3;
 
         /* Tab titles */
         public static final String MOST_EMAILED_TITLE = "Most Emailed";

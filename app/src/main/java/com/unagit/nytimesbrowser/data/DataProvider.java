@@ -59,6 +59,10 @@ public class DataProvider implements Callback<DataWrapper> {
                 call = nytapiService.getMostViewed(Constants.Retrofit.NYTApiKey);
                 break;
 
+            case Constants.Tabs.FAVORITES_TAB:
+                getFavorites();
+                return;
+
             default:
                 call = nytapiService.getMostEmailed(Constants.Retrofit.NYTApiKey);
         }
@@ -100,6 +104,20 @@ public class DataProvider implements Callback<DataWrapper> {
     //TODO: design a better solution to separate UI from data providers.
     private void showErrorToast() {
         Toast.makeText(this.context, "Unable to get articles due to technical issues.", Toast.LENGTH_SHORT).show();
+    }
+
+    private void getFavorites() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                LocalDatabase db = LocalDatabase.getLocalDBInstance(DataProvider.this.context);
+                List<Article> favorites = db.articleDao().getFavorites();
+                DataProvider.this.callback.onCallbackResultsReceived(favorites);
+//                for(Article favorite : favorites) {
+//                    Log.d("Favorites:", favorite.getUrl());
+//                }
+            }
+        }).start();
     }
 
 
