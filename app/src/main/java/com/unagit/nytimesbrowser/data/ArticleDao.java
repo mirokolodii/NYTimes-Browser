@@ -1,5 +1,6 @@
 package com.unagit.nytimesbrowser.data;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -19,6 +20,6 @@ public interface ArticleDao {
     void delete(Article article);
 
     @Query("SELECT * from favorites_table")
-    List<Article> getFavorites();
+    LiveData<List<Article>> getFavorites();
 
 }

@@ -14,7 +14,7 @@ public class ArticleViewModel extends AndroidViewModel {
 
     public ArticleViewModel(Application application) {
         super(application);
-        mDataProvider = new DataProvider();
+        mDataProvider = new DataProvider(application);
         mFavorites = mDataProvider.getFavorites();
 
     }
