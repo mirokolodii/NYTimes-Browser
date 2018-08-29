@@ -23,6 +23,13 @@ public class ArticleViewModel extends AndroidViewModel {
         return mArticles;
     }
 
+    public void insertFavorite(Article article) {
+        mDataProvider.insertFavorite(article);
+    }
+
+    public void deleteFavorite(Article article) {
+        mDataProvider.deleteFavorite(article);
+    }
 }
 
 
