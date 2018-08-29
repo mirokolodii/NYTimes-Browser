@@ -50,14 +50,16 @@ public class MainListAdapter extends ArrayAdapter<Article> {
             TextView title = convertView.findViewById(R.id.article_title);
             TextView date = convertView.findViewById(R.id.article_date);
             TextView author = convertView.findViewById(R.id.article_author);
-            ImageView img = convertView.findViewById(R.id.image_add_favorite);
+            final ImageView img = convertView.findViewById(R.id.image_add_favorite);
 
             title.setText(article.getTitle());
             author.setText(article.getAuthor());
             date.setText(article.getPublishedDate());
 
-            // Add onClickListeners
             final long id = article.getId();
+            final boolean isFavorite = isFavorite(article);
+            img.setImageResource(getImgId(isFavorite));
+            // Add onClickListeners
             convertView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -70,8 +72,14 @@ public class MainListAdapter extends ArrayAdapter<Article> {
             img.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Toast.makeText(getContext(), "Add id: " + id + " to favorites", Toast.LENGTH_SHORT).show();
-                    toggleFavorite(article);
+                    img.setImageResource(getImgId(!isFavorite));
+                    if(isFavorite) {
+                        Toast.makeText(getContext(), "Remove id: " + id + " from favorites", Toast.LENGTH_SHORT).show();
+                        mArticleViewModel.deleteFavorite(article);
+                    } else {
+                        Toast.makeText(getContext(), "Add id: " + id + " to favorites", Toast.LENGTH_SHORT).show();
+                        mArticleViewModel.insertFavorite(article);
+                    }
                 }
             });
 
@@ -100,15 +108,6 @@ public class MainListAdapter extends ArrayAdapter<Article> {
         getContext().startActivity(intent);
     }
 
-    private void toggleFavorite(final Article article) {
-
-        if(isFavorite(article)) {
-            mArticleViewModel.deleteFavorite(article);
-        } else {
-            mArticleViewModel.insertFavorite(article);
-        }
-    }
-
     private boolean isFavorite(Article article) {
         for (Article fav : mFavorites) {
             if(article.getId() == fav.getId()) {
@@ -121,5 +120,9 @@ public class MainListAdapter extends ArrayAdapter<Article> {
     @Override
     public int getCount() {
         return mArticles != null ? mArticles.size() : 0;
+    }
+
+    private int getImgId(boolean isFavorite) {
+        return isFavorite ? R.drawable.ic_favorite : R.drawable.ic_favorite_border;
     }
 }
