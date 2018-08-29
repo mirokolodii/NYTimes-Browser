@@ -39,7 +39,7 @@ public class FavoritesActivity extends AppCompatActivity {
             Log.e(this.getClass().getSimpleName(), e.getMessage());
         }
 
-        MainListAdapter adapter = new MainListAdapter(FavoritesActivity.this);
+        final MainListAdapter adapter = new MainListAdapter(this);
         ListView listView = findViewById(R.id.articles_list_view);
         listView.setAdapter(adapter);
 
