@@ -18,7 +18,6 @@ import java.util.List;
 
 public class FavoritesActivity extends AppCompatActivity {
 
-    private List<Article> mFavorites;
     private ArticleViewModel mArticleViewModel;
 
 
@@ -30,7 +29,7 @@ public class FavoritesActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        // Add back button to activity on toolbar
+        // Add back button on toolbar
         try {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -47,25 +46,9 @@ public class FavoritesActivity extends AppCompatActivity {
         mArticleViewModel.getFavorites().observe(this, new Observer<List<Article>>() {
             @Override
             public void onChanged(@Nullable List<Article> articles) {
+                adapter.setFavorites(articles);
                 adapter.setArticles(articles);
             }
         });
-
-//        DataProvider provider = new DataProvider();
-//
-//        provider.fetchData(this, this, Constants.Tabs.FAVORITES_TAB);
-
-
-
-
-
     }
-
-
-//    @Override
-//    public void onCallbackResultsReceived(List<Article> results) {
-//        MainListAdapter adapter = new MainListAdapter(FavoritesActivity.this, results);
-//        ListView listView = findViewById(R.id.articles_list_view);
-//        listView.setAdapter(adapter);
-//    }
 }

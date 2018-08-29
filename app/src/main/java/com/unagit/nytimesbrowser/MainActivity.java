@@ -23,7 +23,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private List<Article> mFavorites;
     private ArticleViewModel mArticleViewModel;
 
     @Override
@@ -38,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setupViewPagerAndTabLayout();
 
         mArticleViewModel = ViewModelProviders.of(this).get(ArticleViewModel.class);
-
     }
 
     @Override

@@ -1,10 +1,14 @@
 package com.unagit.nytimesbrowser;
 
+import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,15 +18,17 @@ import android.widget.ListView;
 import com.unagit.nytimesbrowser.data.DataProvider;
 import com.unagit.nytimesbrowser.helpers.Constants;
 import com.unagit.nytimesbrowser.models.Article;
+import com.unagit.nytimesbrowser.models.ArticleViewModel;
 
 import java.util.List;
 
-public class MainFragment extends Fragment implements DataProvider.CallbackResult {
+public class MainFragment extends Fragment {
 
     private final String LOG_TAG = this.getClass().getName();
-    private Context context;
+//    private Context context;
     private int queryType;
-    View view;
+    private ArticleViewModel mArticleViewModel;
+//    View view;
 
     public MainFragment() {
         // Required empty public constructor
@@ -31,7 +37,8 @@ public class MainFragment extends Fragment implements DataProvider.CallbackResul
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        this.context = context;
+//        this.context = context;
+        mArticleViewModel = ViewModelProviders.of((AppCompatActivity) context).get(ArticleViewModel.class);
 
         if (getArguments() != null) {
             queryType = getArguments().getInt(Constants.Queries.queryLabel);
@@ -52,24 +59,46 @@ public class MainFragment extends Fragment implements DataProvider.CallbackResul
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_articles, container, false);
-        listArticles(rootView);
+        getData(rootView);
         return rootView;
     }
 
-    private void listArticles(View view) {
-        this.view = view;
-        // Get data from provider, which will be received via callback method onCallbackResultsReceived
-        DataProvider provider = new DataProvider();
-        provider.fetchData(this, this.context, this.queryType);
-    }
+    private void getData(View view) {
+        final MainListAdapter adapter = new MainListAdapter(getActivity());
+        ListView listView = view.findViewById(R.id.articles_list_view);
+        listView.setAdapter(adapter);
 
-    @Override
-    public void onCallbackResultsReceived(List<Article> results) {
-        if(view != null) {
-            MainListAdapter adapter = new MainListAdapter(this.context, results);
-            ListView listView = view.findViewById(R.id.articles_list_view);
-            listView.setAdapter(adapter);
+
+
+        mArticleViewModel.getFavorites().observe(this, new Observer<List<Article>>() {
+            @Override
+            public void onChanged(@Nullable List<Article> articles) {
+                adapter.setFavorites(articles);
+            }
+        });
+
+
+        LiveData<List<Article>> articles = new LiveData<List<Article>>() {
+
+        };
+
+        switch (queryType) {
+            case Constants.Tabs.MOST_EMAILED_TAB:
+                articles = mArticleViewModel.getMostEmailed();
+                break;
+            case Constants.Tabs.MOST_SHARED_TAB:
+                articles = mArticleViewModel.getMostShared();
+                break;
+            case Constants.Tabs.MOST_VIEWED_TAB:
+                articles = mArticleViewModel.getMostViewed();
+                break;
         }
 
+        articles.observe(this, new Observer<List<Article>>() {
+            @Override
+            public void onChanged(@Nullable List<Article> articles) {
+                adapter.setArticles(articles);
+            }
+        });
     }
 }

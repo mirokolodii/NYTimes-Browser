@@ -89,17 +89,12 @@ public class MainListAdapter extends ArrayAdapter<Article> {
     }
 
     public void setArticles(List<Article> articles) {
-        setArticlesAndFavorites(articles, articles);
-    }
-
-    public void setArticles(List<Article> articles, List<Article> favorites) {
-        setArticlesAndFavorites(articles, favorites);
-    }
-
-    private void setArticlesAndFavorites(List<Article> articles, List<Article> favorites) {
         mArticles = articles;
-        mFavorites = favorites;
         notifyDataSetChanged();
+    }
+
+    public void setFavorites(List<Article> favorites) {
+        mFavorites = favorites;
     }
 
     private void showArticle(Article article) {
@@ -109,9 +104,11 @@ public class MainListAdapter extends ArrayAdapter<Article> {
     }
 
     private boolean isFavorite(Article article) {
-        for (Article fav : mFavorites) {
-            if(article.getId() == fav.getId()) {
-                return true;
+        if(mFavorites != null) {
+            for (Article fav : mFavorites) {
+                if(article.getId() == fav.getId()) {
+                    return true;
+                }
             }
         }
         return false;
