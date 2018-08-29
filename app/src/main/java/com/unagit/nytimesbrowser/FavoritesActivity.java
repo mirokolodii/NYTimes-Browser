@@ -1,5 +1,8 @@
 package com.unagit.nytimesbrowser;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -9,10 +12,14 @@ import android.widget.ListView;
 import com.unagit.nytimesbrowser.data.DataProvider;
 import com.unagit.nytimesbrowser.helpers.Constants;
 import com.unagit.nytimesbrowser.models.Article;
+import com.unagit.nytimesbrowser.models.ArticleViewModel;
 
 import java.util.List;
 
-public class FavoritesActivity extends AppCompatActivity implements DataProvider.CallbackResult{
+public class FavoritesActivity extends AppCompatActivity {
+
+    private List<Article> mFavorites;
+    private ArticleViewModel mArticleViewModel;
 
 
     @Override
@@ -32,20 +39,33 @@ public class FavoritesActivity extends AppCompatActivity implements DataProvider
             Log.e(this.getClass().getSimpleName(), e.getMessage());
         }
 
-        DataProvider provider = new DataProvider();
-        provider.fetchData(this, this, Constants.Tabs.FAVORITES_TAB);
-
-
-
-
-
-    }
-
-
-    @Override
-    public void onCallbackResultsReceived(List<Article> results) {
-        MainListAdapter adapter = new MainListAdapter(FavoritesActivity.this, results);
+        MainListAdapter adapter = new MainListAdapter(FavoritesActivity.this);
         ListView listView = findViewById(R.id.articles_list_view);
         listView.setAdapter(adapter);
+
+        mArticleViewModel = ViewModelProviders.of(this).get(ArticleViewModel.class);
+        mArticleViewModel.getFavorites().observe(this, new Observer<List<Article>>() {
+            @Override
+            public void onChanged(@Nullable List<Article> articles) {
+                adapter.setArticles(articles);
+            }
+        });
+
+//        DataProvider provider = new DataProvider();
+//
+//        provider.fetchData(this, this, Constants.Tabs.FAVORITES_TAB);
+
+
+
+
+
     }
+
+
+//    @Override
+//    public void onCallbackResultsReceived(List<Article> results) {
+//        MainListAdapter adapter = new MainListAdapter(FavoritesActivity.this, results);
+//        ListView listView = findViewById(R.id.articles_list_view);
+//        listView.setAdapter(adapter);
+//    }
 }

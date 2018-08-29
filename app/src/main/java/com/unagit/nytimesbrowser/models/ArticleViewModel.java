@@ -19,7 +19,7 @@ public class ArticleViewModel extends AndroidViewModel {
 
     }
 
-    LiveData<List<Article>> getFavorites() {
+    public LiveData<List<Article>> getFavorites() {
         return mArticles;
     }
 

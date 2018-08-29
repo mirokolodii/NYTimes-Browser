@@ -1,7 +1,10 @@
 package com.unagit.nytimesbrowser;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,27 +15,30 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import com.unagit.nytimesbrowser.helpers.Constants;
+import com.unagit.nytimesbrowser.models.Article;
+import com.unagit.nytimesbrowser.models.ArticleViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private List<Article> mFavorites;
+    private ArticleViewModel mArticleViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        DataProvider provider = new DataProvider();
-//        provider.fetchData();
-
-//        TestDataProvider provider = new TestDataProvider();
-//        provider.start();
-
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
 
         // Set tabs and show them on screen, using ViewPager.
         setupViewPagerAndTabLayout();
+
+        mArticleViewModel = ViewModelProviders.of(this).get(ArticleViewModel.class);
+
     }
 
     @Override
