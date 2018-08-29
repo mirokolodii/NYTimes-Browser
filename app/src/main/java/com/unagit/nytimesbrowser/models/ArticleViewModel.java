@@ -10,17 +10,29 @@ import java.util.List;
 public class ArticleViewModel extends AndroidViewModel {
 
     private DataProvider mDataProvider;
-    private LiveData<List<Article>> mArticles;
+    private LiveData<List<Article>> mFavorites;
 
     public ArticleViewModel(Application application) {
         super(application);
         mDataProvider = new DataProvider();
-        mArticles = mDataProvider.getFavorites();
+        mFavorites = mDataProvider.getFavorites();
 
     }
 
     public LiveData<List<Article>> getFavorites() {
-        return mArticles;
+        return mFavorites;
+    }
+
+    public LiveData<List<Article>> getMostEmailed() {
+        return mDataProvider.getMostEmailed();
+    }
+
+    public LiveData<List<Article>> getMostShared() {
+        return mDataProvider.getMostShared();
+    }
+
+    public LiveData<List<Article>> getMostViewed() {
+        return mDataProvider.getMostViewed();
     }
 
     public void insertFavorite(Article article) {

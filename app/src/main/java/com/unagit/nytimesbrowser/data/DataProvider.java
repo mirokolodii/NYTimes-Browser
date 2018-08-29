@@ -1,5 +1,6 @@
 package com.unagit.nytimesbrowser.data;
 
+import android.arch.lifecycle.LiveData;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -71,6 +72,7 @@ public class DataProvider implements Callback<DataWrapper> {
         call.enqueue(this);
     }
 
+
     @Override
     public void onResponse(Call<DataWrapper> call, Response<DataWrapper> response) {
         Log.d(this.getClass().getSimpleName(), "onResponse is triggered");
@@ -106,7 +108,7 @@ public class DataProvider implements Callback<DataWrapper> {
         Toast.makeText(this.context, "Unable to get articles due to technical issues.", Toast.LENGTH_SHORT).show();
     }
 
-    public void getFavorites() {
+    public LiveData<List<Article>> getFavorites() {
         new Thread(new Runnable() {
             @Override
             public void run() {

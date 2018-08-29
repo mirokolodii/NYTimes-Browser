@@ -23,6 +23,7 @@ import java.util.List;
 public class MainListAdapter extends ArrayAdapter<Article> {
 
     private List<Article> mArticles; // cached copy of articles
+    private List<Article> mFavorites; // cached copy of favorites
     private ArticleViewModel mArticleViewModel;
 
     final String LOG_TAG = this.getClass().getSimpleName();
@@ -32,11 +33,6 @@ public class MainListAdapter extends ArrayAdapter<Article> {
         mArticleViewModel = ViewModelProviders.of((AppCompatActivity) context).get(ArticleViewModel.class);
 
 
-    }
-
-    @Override
-    public int getCount() {
-        return mArticles != null ? mArticles.size() : 0;
     }
 
     @NonNull
@@ -85,7 +81,16 @@ public class MainListAdapter extends ArrayAdapter<Article> {
     }
 
     public void setArticles(List<Article> articles) {
+        setArticlesAndFavorites(articles, articles);
+    }
+
+    public void setArticles(List<Article> articles, List<Article> favorites) {
+        setArticlesAndFavorites(articles, favorites);
+    }
+
+    private void setArticlesAndFavorites(List<Article> articles, List<Article> favorites) {
         mArticles = articles;
+        mFavorites = favorites;
         notifyDataSetChanged();
     }
 
@@ -102,27 +107,19 @@ public class MainListAdapter extends ArrayAdapter<Article> {
         } else {
             mArticleViewModel.insertFavorite(article);
         }
-
-        // Test
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                LocalDatabase db = LocalDatabase.getLocalDBInstance(getContext());
-//                db.articleDao().insert(article);
-//                List<Article> favorites = db.articleDao().getFavorites();
-//                for(Article favorite : favorites) {
-//                    Log.d("Favorites:", favorite.getUrl());
-//                }
-//            }
-//        }).start();
     }
 
     private boolean isFavorite(Article article) {
-        for (Article item : mArticles) {
-            if(article.getId() == item.getId()) {
+        for (Article fav : mFavorites) {
+            if(article.getId() == fav.getId()) {
                 return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public int getCount() {
+        return mArticles != null ? mArticles.size() : 0;
     }
 }
