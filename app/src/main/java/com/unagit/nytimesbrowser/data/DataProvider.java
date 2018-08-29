@@ -106,7 +106,7 @@ public class DataProvider implements Callback<DataWrapper> {
         Toast.makeText(this.context, "Unable to get articles due to technical issues.", Toast.LENGTH_SHORT).show();
     }
 
-    private void getFavorites() {
+    public void getFavorites() {
         new Thread(new Runnable() {
             @Override
             public void run() {
