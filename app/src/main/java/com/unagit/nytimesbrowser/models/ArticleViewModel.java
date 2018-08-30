@@ -22,8 +22,6 @@ public class ArticleViewModel extends AndroidViewModel {
         mMostEmailed = mDataProvider.getMostEmailed();
         mMostViewed = mDataProvider.getMostViewed();
         mMostShared = mDataProvider.getMostShared();
-
-
     }
 
     public LiveData<List<Article>> getFavorites() {

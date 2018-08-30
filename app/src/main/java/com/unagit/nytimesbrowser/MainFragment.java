@@ -68,15 +68,12 @@ public class MainFragment extends Fragment {
         ListView listView = view.findViewById(R.id.articles_list_view);
         listView.setAdapter(adapter);
 
-
-
         mArticleViewModel.getFavorites().observe(this, new Observer<List<Article>>() {
             @Override
             public void onChanged(@Nullable List<Article> articles) {
                 adapter.setFavorites(articles);
             }
         });
-
 
         LiveData<List<Article>> articles = new LiveData<List<Article>>() {
 

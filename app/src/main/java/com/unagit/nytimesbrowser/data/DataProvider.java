@@ -22,7 +22,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DataProvider {
+public class DataProvider implements Callback<DataWrapper> {
 
     private static LocalDatabase mDB;
     private Application mApplication;
@@ -46,35 +46,34 @@ public class DataProvider {
     }
 
     public LiveData<List<Article>> getMostEmailed() {
-//        mCall = mNytapiService.getMostEmailed(Constants.Retrofit.NYTApiKey);
-//        Log.d(this.getClass().getSimpleName(), mCall.request().url().toString());
-//        mCall.enqueue(this);
+        mCall = mNytapiService.getMostEmailed(Constants.Retrofit.NYTApiKey);
         CallbackReceiver callbackReceiver = new CallbackReceiver(Constants.Tabs.MOST_EMAILED_TAB);
         mCall.enqueue(callbackReceiver);
         return mMostEmailed;
-//        return mArticles;
-//        return mMostEmailed;
     }
 
     public LiveData<List<Article>> getMostShared() {
-//        mCall = mNytapiService.getMostShared(Constants.Retrofit.NYTApiKey);
-////        Log.d(this.getClass().getSimpleName(), mCall.request().url().toString());
-//        mCall.enqueue(this);
-////        return mArticles;
+        mCall = mNytapiService.getMostShared(Constants.Retrofit.NYTApiKey);
         CallbackReceiver callbackReceiver = new CallbackReceiver(Constants.Tabs.MOST_SHARED_TAB);
         mCall.enqueue(callbackReceiver);
-//        return mMostViewed;
         return mMostShared;
     }
 
     public LiveData<List<Article>> getMostViewed() {
         mCall = mNytapiService.getMostViewed(Constants.Retrofit.NYTApiKey);
-        Log.d(this.getClass().getSimpleName(), mCall.request().url().toString());
-//        mCall.enqueue(this);
-//        return mArticles;
         CallbackReceiver callbackReceiver = new CallbackReceiver(Constants.Tabs.MOST_VIEWED_TAB);
         mCall.enqueue(callbackReceiver);
         return mMostViewed;
+    }
+
+    @Override
+    public void onResponse(Call<DataWrapper> call, Response<DataWrapper> response) {
+
+    }
+
+    @Override
+    public void onFailure(Call<DataWrapper> call, Throwable t) {
+
     }
 
     private class CallbackReceiver implements Callback<DataWrapper> {

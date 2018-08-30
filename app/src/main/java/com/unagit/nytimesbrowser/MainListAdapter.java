@@ -95,6 +95,7 @@ public class MainListAdapter extends ArrayAdapter<Article> {
 
     public void setFavorites(List<Article> favorites) {
         mFavorites = favorites;
+        notifyDataSetChanged();
     }
 
     private void showArticle(Article article) {
