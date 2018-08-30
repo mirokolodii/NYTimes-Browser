@@ -2,6 +2,7 @@ package com.unagit.nytimesbrowser.data;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
@@ -35,7 +36,7 @@ public class DataProvider implements Callback<DataWrapper> {
     private Call<DataWrapper> mCall;
     private NYTAPIService mNytapiService;
 
-    private LiveData<List<Article>> mArticles;
+    private MutableLiveData<List<Article>> mArticles = new MutableLiveData<>();
 
     public DataProvider(Application application) {
         mDB = LocalDatabase.getLocalDBInstance(application;
@@ -124,7 +125,7 @@ public class DataProvider implements Callback<DataWrapper> {
                     Log.d(DataProvider.this.getClass().getSimpleName(), "ID: " + article.getId());
 
                 }
-                mArticles = articles;
+                mArticles.setValue(articles);
             } else {
                 showErrorToast();
             }
