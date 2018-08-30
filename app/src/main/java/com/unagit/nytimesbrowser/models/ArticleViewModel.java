@@ -11,11 +11,18 @@ public class ArticleViewModel extends AndroidViewModel {
 
     private DataProvider mDataProvider;
     private LiveData<List<Article>> mFavorites;
+    private LiveData<List<Article>> mMostViewed;
+    private LiveData<List<Article>> mMostEmailed;
+    private LiveData<List<Article>> mMostShared;
 
     public ArticleViewModel(Application application) {
         super(application);
         mDataProvider = new DataProvider(application);
         mFavorites = mDataProvider.getFavorites();
+        mMostEmailed = mDataProvider.getMostEmailed();
+        mMostViewed = mDataProvider.getMostViewed();
+        mMostShared = mDataProvider.getMostShared();
+
 
     }
 
@@ -24,15 +31,15 @@ public class ArticleViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Article>> getMostEmailed() {
-        return mDataProvider.getMostEmailed();
+        return mMostEmailed;
     }
 
     public LiveData<List<Article>> getMostShared() {
-        return mDataProvider.getMostShared();
+        return mMostShared;
     }
 
     public LiveData<List<Article>> getMostViewed() {
-        return mDataProvider.getMostViewed();
+        return mMostViewed;
     }
 
     public void insertFavorite(Article article) {
