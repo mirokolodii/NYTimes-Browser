@@ -30,6 +30,9 @@ public class DataProvider implements Callback<DataWrapper> {
     private NYTAPIService mNytapiService;
 
     private MutableLiveData<List<Article>> mArticles = new MutableLiveData<>();
+    private MutableLiveData<List<Article>> mMostViewed = new MutableLiveData<>();
+    private MutableLiveData<List<Article>> mMostEmailed = new MutableLiveData<>();
+    private MutableLiveData<List<Article>> mMostShared = new MutableLiveData<>();
 
     public DataProvider(Application application) {
         mDB = LocalDatabase.getLocalDBInstance(application);
@@ -43,25 +46,58 @@ public class DataProvider implements Callback<DataWrapper> {
     }
 
     public LiveData<List<Article>> getMostEmailed() {
-        mCall = mNytapiService.getMostEmailed(Constants.Retrofit.NYTApiKey);
-        Log.d(this.getClass().getSimpleName(), mCall.request().url().toString());
-        mCall.enqueue(this);
+//        mCall = mNytapiService.getMostEmailed(Constants.Retrofit.NYTApiKey);
+//        Log.d(this.getClass().getSimpleName(), mCall.request().url().toString());
+//        mCall.enqueue(this);
         return mArticles;
+//        return mMostEmailed;
     }
 
     public LiveData<List<Article>> getMostShared() {
-        mCall = mNytapiService.getMostShared(Constants.Retrofit.NYTApiKey);
-        Log.d(this.getClass().getSimpleName(), mCall.request().url().toString());
-        mCall.enqueue(this);
+//        mCall = mNytapiService.getMostShared(Constants.Retrofit.NYTApiKey);
+//        Log.d(this.getClass().getSimpleName(), mCall.request().url().toString());
+//        mCall.enqueue(this);
         return mArticles;
+//        return mMostShared;
     }
 
     public LiveData<List<Article>> getMostViewed() {
         mCall = mNytapiService.getMostViewed(Constants.Retrofit.NYTApiKey);
         Log.d(this.getClass().getSimpleName(), mCall.request().url().toString());
-        mCall.enqueue(this);
-        return mArticles;
+//        mCall.enqueue(this);
+//        return mArticles;
+        MostViewedReceiver mostViewedReceiver = new MostViewedReceiver();
+        mCall.enqueue(mostViewedReceiver);
+        return mMostViewed;
     }
+
+    private class MostViewedReceiver implements Callback<DataWrapper> {
+
+        @Override
+        public void onResponse(Call<DataWrapper> call, Response<DataWrapper> response) {
+            if (response.isSuccessful()) {
+                DataWrapper dataWrapper = response.body();
+                if (dataWrapper != null) {
+                    List<Article> articles = dataWrapper.getArticles();
+                    for(Article article : articles) {
+                        article.generateId();
+                    }
+                    DataProvider.this.mMostViewed.setValue(articles);
+                } else {
+                    DataProvider.this.showErrorToast();
+                }
+            } else {
+                System.out.println(response.errorBody());
+                showErrorToast();
+            }
+        }
+
+        @Override
+        public void onFailure(Call<DataWrapper> call, Throwable t) {
+
+        }
+    }
+
 
     @Override
     public void onResponse(Call<DataWrapper> call, Response<DataWrapper> response) {
@@ -110,7 +146,6 @@ public class DataProvider implements Callback<DataWrapper> {
     }
 
     private static class InsertAsyncTask extends AsyncTask<Article, Void, Void> {
-
         @Override
         protected Void doInBackground(Article... articles) {
             mDB.articleDao().insert(articles[0]);
@@ -119,7 +154,6 @@ public class DataProvider implements Callback<DataWrapper> {
     }
 
     private static class DeleteAsyncTask extends AsyncTask<Article, Void, Void> {
-
         @Override
         protected Void doInBackground(Article... articles) {
             mDB.articleDao().delete(articles[0]);
