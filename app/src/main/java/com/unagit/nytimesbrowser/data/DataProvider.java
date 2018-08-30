@@ -4,6 +4,7 @@ import android.app.Application;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -31,7 +32,7 @@ public class DataProvider implements Callback<DataWrapper> {
 //    private CallbackResult callback;
 //    private Context context;
 
-    private LocalDatabase mDB;
+    private static LocalDatabase mDB;
     private Application mApplication;
     private Call<DataWrapper> mCall;
     private NYTAPIService mNytapiService;
@@ -165,10 +166,28 @@ public class DataProvider implements Callback<DataWrapper> {
     }
 
     public void insertFavorite(Article article) {
-        mDB.articleDao().insert(article);
+        new InsertAsyncTask().execute(article);
     }
 
     public void deleteFavorite(Article article) {
-        mDB.articleDao().delete(article);
+        new DeleteAsyncTask().execute(article);
+    }
+
+    private static class InsertAsyncTask extends AsyncTask<Article, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Article... articles) {
+            mDB.articleDao().insert(articles[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAsyncTask extends AsyncTask<Article, Void, Void> {
+
+        @Override
+        protected Void doInBackground(Article... articles) {
+            mDB.articleDao().delete(articles[0]);
+            return null;
+        }
     }
 }
