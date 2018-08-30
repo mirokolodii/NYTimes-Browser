@@ -39,7 +39,7 @@ public class DataProvider implements Callback<DataWrapper> {
     private MutableLiveData<List<Article>> mArticles = new MutableLiveData<>();
 
     public DataProvider(Application application) {
-        mDB = LocalDatabase.getLocalDBInstance(application;
+        mDB = LocalDatabase.getLocalDBInstance(application);
         mApplication = application;
 
         Retrofit retrofit = new Retrofit.Builder()
@@ -162,5 +162,13 @@ public class DataProvider implements Callback<DataWrapper> {
 ////                }
 //            }
 //        }).start();
+    }
+
+    public void insertFavorite(Article article) {
+        mDB.articleDao().insert(article);
+    }
+
+    public void deleteFavorite(Article article) {
+        mDB.articleDao().delete(article);
     }
 }
