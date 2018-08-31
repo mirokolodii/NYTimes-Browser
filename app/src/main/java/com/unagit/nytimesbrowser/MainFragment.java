@@ -30,6 +30,7 @@ public class MainFragment extends Fragment {
     private final String LOG_TAG = this.getClass().getName();
     private int queryType;
     private ArticleViewModel mArticleViewModel;
+    private Button mRetryBtn;
 
 
     public MainFragment() {
@@ -71,17 +72,30 @@ public class MainFragment extends Fragment {
         ListView listView = view.findViewById(R.id.articles_list_view);
         listView.setAdapter(adapter);
 
-        final Button retryBtn = view.findViewById(R.id.retry_button);
+        mRetryBtn = view.findViewById(R.id.retry_button);
 
-        retryBtn.setOnClickListener(new View.OnClickListener() {
+        mRetryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mArticleViewModel.updateData();
-                retryBtn.setVisibility(View.GONE);
+                mRetryBtn.setVisibility(View.GONE);
                 ((MainActivity) getActivity()).showProgressBar(true);
             }
         });
 
+        addObservers(adapter, mRetryBtn);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+//        if(mRetryBtn != null) {
+//            mRetryBtn.setVisibility(View.GONE);
+//        }
+        removeObservers();
+    }
+
+    private void addObservers(final MainListAdapter adapter, final Button retryBtn) {
         mArticleViewModel.getFavorites().observe(this, new Observer<List<Article>>() {
             @Override
             public void onChanged(@Nullable List<Article> articles) {
@@ -89,44 +103,50 @@ public class MainFragment extends Fragment {
             }
         });
 
-        LiveData<List<Article>> articles = new LiveData<List<Article>>() {
-
+        Observer<List<Article>> observer = new Observer<List<Article>>() {
+            @Override
+            public void onChanged(@Nullable List<Article> articles) {
+                if (articles != null && articles.size() > 0) {
+                    ((MainActivity) getActivity()).showProgressBar(false);
+                    mRetryBtn.setVisibility(View.GONE);
+                }
+//                retryBtn.setVisibility(View.GONE);
+                adapter.setArticles(articles);
+            }
         };
 
         switch (queryType) {
             case Constants.Tabs.MOST_EMAILED_TAB:
-                articles = mArticleViewModel.getMostEmailed();
+                mArticleViewModel.getMostEmailed().observe(this, observer);
                 break;
             case Constants.Tabs.MOST_SHARED_TAB:
-                articles = mArticleViewModel.getMostShared();
+                mArticleViewModel.getMostShared().observe(this, observer);
+                ;
                 break;
             case Constants.Tabs.MOST_VIEWED_TAB:
-                articles = mArticleViewModel.getMostViewed();
+                mArticleViewModel.getMostViewed().observe(this, observer);
+                ;
                 break;
         }
-
-        articles.observe(this, new Observer<List<Article>>() {
-            @Override
-            public void onChanged(@Nullable List<Article> articles) {
-                if(articles != null && articles.size() > 0) {
-                    ((MainActivity) getActivity()).showProgressBar(false);
-                }
-                adapter.setArticles(articles);
-            }
-        });
 
         mArticleViewModel.getErrorMessage().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                if(s != null && !s.isEmpty()) {
+                if (s != null && !s.isEmpty()) {
                     ((MainActivity) getActivity()).showProgressBar(false);
                     Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
                     retryBtn.setVisibility(View.VISIBLE);
                 }
             }
         });
+    }
 
-
+    private void removeObservers() {
+        mArticleViewModel.getFavorites().removeObservers(this);
+        mArticleViewModel.getMostEmailed().removeObservers(this);
+        mArticleViewModel.getMostShared().removeObservers(this);
+        mArticleViewModel.getMostViewed().removeObservers(this);
+        mArticleViewModel.getErrorMessage().removeObservers(this);
     }
 
 

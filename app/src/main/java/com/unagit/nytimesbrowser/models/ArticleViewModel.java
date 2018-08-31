@@ -21,6 +21,7 @@ public class ArticleViewModel extends AndroidViewModel {
         mDataProvider = new DataProvider(application);
         mFavorites = mDataProvider.getFavorites();
         mErrorMessage = mDataProvider.getErrorMessage();
+
         updateData();
     }
 
@@ -48,7 +49,9 @@ public class ArticleViewModel extends AndroidViewModel {
         mDataProvider.deleteFavorite(article);
     }
 
-    public LiveData<String> getErrorMessage() { return mErrorMessage; }
+    public LiveData<String> getErrorMessage() {
+        return mErrorMessage;
+    }
 
     public void updateData() {
         mMostEmailed = mDataProvider.getMostEmailed();

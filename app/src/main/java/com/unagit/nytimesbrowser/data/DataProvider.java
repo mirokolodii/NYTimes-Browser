@@ -5,6 +5,7 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
 import android.os.AsyncTask;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -22,14 +23,12 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class DataProvider implements Callback<DataWrapper> {
+public class DataProvider {
 
     private static LocalDatabase mDB;
-    private Application mApplication;
     private Call<DataWrapper> mCall;
     private NYTAPIService mNytapiService;
 
-//    private MutableLiveData<List<Article>> mArticles = new MutableLiveData<>();
     private MutableLiveData<List<Article>> mMostViewed = new MutableLiveData<>();
     private MutableLiveData<List<Article>> mMostEmailed = new MutableLiveData<>();
     private MutableLiveData<List<Article>> mMostShared = new MutableLiveData<>();
@@ -37,7 +36,6 @@ public class DataProvider implements Callback<DataWrapper> {
 
     public DataProvider(Application application) {
         mDB = LocalDatabase.getLocalDBInstance(application);
-        mApplication = application;
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.Retrofit.NYTBaseApiUrl)
@@ -47,6 +45,7 @@ public class DataProvider implements Callback<DataWrapper> {
     }
 
     public LiveData<List<Article>> getMostEmailed() {
+        mErrorMessage.setValue(null);
         mCall = mNytapiService.getMostEmailed(Constants.Retrofit.NYTApiKey);
         CallbackReceiver callbackReceiver = new CallbackReceiver(Constants.Tabs.MOST_EMAILED_TAB);
         mCall.enqueue(callbackReceiver);
@@ -54,6 +53,7 @@ public class DataProvider implements Callback<DataWrapper> {
     }
 
     public LiveData<List<Article>> getMostShared() {
+        mErrorMessage.setValue(null);
         mCall = mNytapiService.getMostShared(Constants.Retrofit.NYTApiKey);
         CallbackReceiver callbackReceiver = new CallbackReceiver(Constants.Tabs.MOST_SHARED_TAB);
         mCall.enqueue(callbackReceiver);
@@ -61,21 +61,22 @@ public class DataProvider implements Callback<DataWrapper> {
     }
 
     public LiveData<List<Article>> getMostViewed() {
+        mErrorMessage.setValue(null);
         mCall = mNytapiService.getMostViewed(Constants.Retrofit.NYTApiKey);
         CallbackReceiver callbackReceiver = new CallbackReceiver(Constants.Tabs.MOST_VIEWED_TAB);
         mCall.enqueue(callbackReceiver);
         return mMostViewed;
     }
 
-    @Override
-    public void onResponse(Call<DataWrapper> call, Response<DataWrapper> response) {
-
-    }
-
-    @Override
-    public void onFailure(Call<DataWrapper> call, Throwable t) {
-
-    }
+//    @Override
+//    public void onResponse(Call<DataWrapper> call, Response<DataWrapper> response) {
+//
+//    }
+//
+//    @Override
+//    public void onFailure(Call<DataWrapper> call, Throwable t) {
+//
+//    }
 
     private class CallbackReceiver implements Callback<DataWrapper> {
         private int mQueryType;
@@ -115,16 +116,10 @@ public class DataProvider implements Callback<DataWrapper> {
 
         @Override
         public void onFailure(Call<DataWrapper> call, Throwable t) {
+            Log.d(DataProvider.this.getClass().getSimpleName(), t.getMessage());
             t.printStackTrace();
             DataProvider.this.mErrorMessage.setValue("Failed to get articles from server.");
         }
-    }
-
-
-//    @Override
-    //TODO: design a better solution to separate UI from data providers.
-    private void showErrorToast() {
-        Toast.makeText(mApplication, "Unable to get articles due to technical issues.", Toast.LENGTH_SHORT).show();
     }
 
     public LiveData<List<Article>> getFavorites() {
