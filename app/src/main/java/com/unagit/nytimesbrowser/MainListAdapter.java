@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.unagit.nytimesbrowser.helpers.Constants;
@@ -51,6 +52,7 @@ public class MainListAdapter extends ArrayAdapter<Article> {
             TextView date = convertView.findViewById(R.id.article_date);
             TextView author = convertView.findViewById(R.id.article_author);
             final ImageView img = convertView.findViewById(R.id.image_add_favorite);
+//            final ProgressBar progressBar = convertView.findViewById(R.id.article_progressBar);
 
             title.setText(article.getTitle());
             author.setText(article.getAuthor());
@@ -65,7 +67,9 @@ public class MainListAdapter extends ArrayAdapter<Article> {
                 public void onClick(View view) {
                     Toast.makeText(getContext(), "Position: " + position, Toast.LENGTH_SHORT).show();
 //                    mMainActivity.showProgressBar(true);
+//                    progressBar.setVisibility(View.VISIBLE);
                     showArticle(article);
+//                    progressBar.setVisibility(View.GONE);
                 }
             });
 

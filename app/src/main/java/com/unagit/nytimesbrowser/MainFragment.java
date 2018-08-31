@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.unagit.nytimesbrowser.data.DataProvider;
 import com.unagit.nytimesbrowser.helpers.Constants;
@@ -99,6 +100,16 @@ public class MainFragment extends Fragment {
                     ((MainActivity) getActivity()).showProgressBar(false);
                 }
                 adapter.setArticles(articles);
+            }
+        });
+
+        mArticleViewModel.getErrorMessage().observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                if(s != null && !s.isEmpty()) {
+                    ((MainActivity) getActivity()).showProgressBar(false);
+                    Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

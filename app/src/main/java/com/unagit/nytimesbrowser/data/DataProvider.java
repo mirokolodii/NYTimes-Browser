@@ -33,6 +33,7 @@ public class DataProvider implements Callback<DataWrapper> {
     private MutableLiveData<List<Article>> mMostViewed = new MutableLiveData<>();
     private MutableLiveData<List<Article>> mMostEmailed = new MutableLiveData<>();
     private MutableLiveData<List<Article>> mMostShared = new MutableLiveData<>();
+    private MutableLiveData<String> mErrorMessage = new MutableLiveData<>();
 
     public DataProvider(Application application) {
         mDB = LocalDatabase.getLocalDBInstance(application);
@@ -104,52 +105,23 @@ public class DataProvider implements Callback<DataWrapper> {
                     }
 
                 } else {
-                    DataProvider.this.showErrorToast();
+                    DataProvider.this.mErrorMessage.setValue("No data received.");
                 }
             } else {
                 System.out.println(response.errorBody());
-                showErrorToast();
+                DataProvider.this.mErrorMessage.setValue("Can't parse received data.");
             }
         }
 
         @Override
         public void onFailure(Call<DataWrapper> call, Throwable t) {
-            Log.d(this.getClass().getSimpleName(), "onFailure is triggered");
             t.printStackTrace();
-            showErrorToast();
+            DataProvider.this.mErrorMessage.setValue("Failed to get articles from server.");
         }
     }
 
 
 //    @Override
-//    public void onResponse(Call<DataWrapper> call, Response<DataWrapper> response) {
-//        Log.d(this.getClass().getSimpleName(), "onResponse is triggered");
-//        if (response.isSuccessful()) {
-//            DataWrapper dataWrapper = response.body();
-//            if (dataWrapper != null) {
-//                List<Article> articles = dataWrapper.getArticles();
-//                for(Article article : articles) {
-//                    article.generateId();
-//                    Log.d(DataProvider.this.getClass().getSimpleName(), article.getUrl());
-//                    Log.d(DataProvider.this.getClass().getSimpleName(), "ID: " + article.getId());
-//                }
-//                mArticles.setValue(articles);
-//            } else {
-//                showErrorToast();
-//            }
-//        } else {
-//            System.out.println(response.errorBody());
-//            showErrorToast();
-//        }
-//    }
-//
-//    @Override
-//    public void onFailure(Call<DataWrapper> call, Throwable t) {
-//        Log.d(this.getClass().getSimpleName(), "onFailure is triggered");
-//        t.printStackTrace();
-//        showErrorToast();
-//    }
-
     //TODO: design a better solution to separate UI from data providers.
     private void showErrorToast() {
         Toast.makeText(mApplication, "Unable to get articles due to technical issues.", Toast.LENGTH_SHORT).show();
@@ -181,5 +153,9 @@ public class DataProvider implements Callback<DataWrapper> {
             mDB.articleDao().delete(articles[0]);
             return null;
         }
+    }
+
+    public LiveData<String> getErrorMessage() {
+        return mErrorMessage;
     }
 }
