@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -70,6 +71,17 @@ public class MainFragment extends Fragment {
         ListView listView = view.findViewById(R.id.articles_list_view);
         listView.setAdapter(adapter);
 
+        final Button retryBtn = view.findViewById(R.id.retry_button);
+
+        retryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mArticleViewModel.updateData();
+                retryBtn.setVisibility(View.GONE);
+                ((MainActivity) getActivity()).showProgressBar(true);
+            }
+        });
+
         mArticleViewModel.getFavorites().observe(this, new Observer<List<Article>>() {
             @Override
             public void onChanged(@Nullable List<Article> articles) {
@@ -109,9 +121,12 @@ public class MainFragment extends Fragment {
                 if(s != null && !s.isEmpty()) {
                     ((MainActivity) getActivity()).showProgressBar(false);
                     Toast.makeText(getContext(), s, Toast.LENGTH_SHORT).show();
+                    retryBtn.setVisibility(View.VISIBLE);
                 }
             }
         });
+
+
     }
 
 

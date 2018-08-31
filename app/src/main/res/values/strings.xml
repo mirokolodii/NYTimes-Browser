@@ -5,4 +5,5 @@
     <string name="title_activity_article">Details</string>
     <string name="title_activity_favorites">Favorites</string>
     <string name="fav_menu_btn_label">Favorites</string>
+    <string name="retry_btn_label">Retry</string>
 </resources>

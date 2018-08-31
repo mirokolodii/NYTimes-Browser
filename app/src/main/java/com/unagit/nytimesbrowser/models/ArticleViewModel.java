@@ -20,10 +20,8 @@ public class ArticleViewModel extends AndroidViewModel {
         super(application);
         mDataProvider = new DataProvider(application);
         mFavorites = mDataProvider.getFavorites();
-        mMostEmailed = mDataProvider.getMostEmailed();
-        mMostViewed = mDataProvider.getMostViewed();
-        mMostShared = mDataProvider.getMostShared();
         mErrorMessage = mDataProvider.getErrorMessage();
+        updateData();
     }
 
     public LiveData<List<Article>> getFavorites() {
@@ -51,6 +49,12 @@ public class ArticleViewModel extends AndroidViewModel {
     }
 
     public LiveData<String> getErrorMessage() { return mErrorMessage; }
+
+    public void updateData() {
+        mMostEmailed = mDataProvider.getMostEmailed();
+        mMostViewed = mDataProvider.getMostViewed();
+        mMostShared = mDataProvider.getMostShared();
+    }
 }
 
 
