@@ -25,14 +25,14 @@ public class MainListAdapter extends ArrayAdapter<Article> {
     private List<Article> mArticles; // cached copy of articles
     private List<Article> mFavorites; // cached copy of favorites
     private ArticleViewModel mArticleViewModel;
+//    private MainActivity mMainActivity;
 
     final String LOG_TAG = this.getClass().getSimpleName();
 
     MainListAdapter(Context context) {
         super(context, R.layout.list_view_article);
+//        mMainActivity = (MainActivity) context;
         mArticleViewModel = ViewModelProviders.of((AppCompatActivity) context).get(ArticleViewModel.class);
-
-
     }
 
     @NonNull
@@ -64,6 +64,7 @@ public class MainListAdapter extends ArrayAdapter<Article> {
                 @Override
                 public void onClick(View view) {
                     Toast.makeText(getContext(), "Position: " + position, Toast.LENGTH_SHORT).show();
+//                    mMainActivity.showProgressBar(true);
                     showArticle(article);
                 }
             });

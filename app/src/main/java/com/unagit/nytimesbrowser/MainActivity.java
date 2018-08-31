@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.unagit.nytimesbrowser.helpers.Constants;
 import com.unagit.nytimesbrowser.models.Article;
@@ -24,6 +26,13 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private ArticleViewModel mArticleViewModel;
+    private ProgressBar mProgressBar;
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        showProgressBar(false);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar myToolbar = findViewById(R.id.toolbar);
         setSupportActionBar(myToolbar);
+
+        mProgressBar = findViewById(R.id.progressBar);
 
         // Set tabs and show them on screen, using ViewPager.
         setupViewPagerAndTabLayout();
@@ -124,5 +135,15 @@ public class MainActivity extends AppCompatActivity {
 
     private void launchFavoritesActivity() {
         startActivity(new Intent(this, FavoritesActivity.class));
+    }
+
+    public void showProgressBar(boolean show) {
+        if(mProgressBar != null) {
+            if(show){
+                mProgressBar.setVisibility(View.VISIBLE);
+            } else {
+                mProgressBar.setVisibility(View.GONE);
+            }
+        }
     }
 }

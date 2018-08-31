@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.unagit.nytimesbrowser.data.DataProvider;
 import com.unagit.nytimesbrowser.helpers.Constants;
@@ -25,10 +26,9 @@ import java.util.List;
 public class MainFragment extends Fragment {
 
     private final String LOG_TAG = this.getClass().getName();
-//    private Context context;
     private int queryType;
     private ArticleViewModel mArticleViewModel;
-//    View view;
+
 
     public MainFragment() {
         // Required empty public constructor
@@ -59,6 +59,7 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_articles, container, false);
+        ((MainActivity) getActivity()).showProgressBar(true);
         getData(rootView);
         return rootView;
     }
@@ -94,8 +95,13 @@ public class MainFragment extends Fragment {
         articles.observe(this, new Observer<List<Article>>() {
             @Override
             public void onChanged(@Nullable List<Article> articles) {
+                if(articles != null && articles.size() > 0) {
+                    ((MainActivity) getActivity()).showProgressBar(false);
+                }
                 adapter.setArticles(articles);
             }
         });
     }
+
+
 }
