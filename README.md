@@ -1,10 +1,7 @@
 # NYTimes-Browser
-Browser of NYTimes articles
+Android application, which shows most popular NYTimes articles.
 
 <h2>Description</h2>
-
-
-
 
 <table>
   <tr>
@@ -30,7 +27,7 @@ Browser of NYTimes articles
   </table>
  
 
-<div>Show particular article:</div>
+<div>Show particular article in a WebView:</div>
 <img src="https://user-images.githubusercontent.com/23655108/44945544-06a27f80-adec-11e8-8c79-ae76015c4fb6.png" width="50%" />
 
 <h2>Configuration</h2>
