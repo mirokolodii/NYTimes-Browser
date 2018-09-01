@@ -2,7 +2,9 @@
 Browser of NYTimes articles
 
 <h2>Description</h2>
+
 List articles from three categories: most emailed, most shared, most viewed:
+
 ![image](https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png)
 
 Add articles to favorites list (which also works in offline mode):
