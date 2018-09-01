@@ -7,8 +7,12 @@ List articles from three categories: most emailed, most shared, most viewed:
 
 <table>
   <tr>
-    <td>![image](https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png)</td>
-    <td>![image](https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png)</td>
+    <td>
+      
+      ![image](https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png)</td>
+    <td>
+    
+    ![image](https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png)</td>
   </tr>
   </table>
 
