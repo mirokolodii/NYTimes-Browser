@@ -13,8 +13,10 @@ List articles from three categories: most emailed, most shared, most viewed:
     <td><img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" width="50%" /></td>
     <td><img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" width="50%" /></td>
   </tr>
+  </table>
+  
 
-<span>![image](https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png)</span>
+
 
 
 
