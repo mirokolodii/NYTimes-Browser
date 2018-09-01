@@ -3,15 +3,18 @@ Browser of NYTimes articles
 
 <h2>Description</h2>
 
-List articles from three categories: most emailed, most shared, most viewed:
 
 
-<img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" width="50%" />
 
 <table>
   <tr>
-    <td><img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" width="50%" /></td>
-    <td><img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" width="50%" /></td>
+    <td>
+      <div>List articles from three categories: most emailed, most shared, most viewed</div>
+      <img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" />
+    </td>
+    <td>
+      <div>Add articles to favorites list (which also works in offline mode)</div>
+      <img src="https://user-images.githubusercontent.com/23655108/44945537-d2c75a00-adeb-11e8-8bf5-f8df092a7f89.png" /></td>
   </tr>
   </table>
   
