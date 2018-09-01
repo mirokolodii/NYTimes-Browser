@@ -16,16 +16,22 @@ Browser of NYTimes articles
           <li>most viewed</li>
         </ul>
       </div>
-      <img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" />
-    </td>
+      </td>
     <td>
       <div>Add articles to favorites list (which also works in offline mode)</div>
+    </td>
+    </tr>
+  <tr>
+    <td>
+      <img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" /></td>
+    <td>
       <img src="https://user-images.githubusercontent.com/23655108/44945537-d2c75a00-adeb-11e8-8bf5-f8df092a7f89.png" /></td>
   </tr>
   </table>
+ 
 
-Show particular article:
-<img src="https://user-images.githubusercontent.com/23655108/44945544-06a27f80-adec-11e8-8c79-ae76015c4fb6.png" width="60%" />
+<div>Show particular article:</div>
+<img src="https://user-images.githubusercontent.com/23655108/44945544-06a27f80-adec-11e8-8c79-ae76015c4fb6.png" width="50%" />
 
 <h2>Configuration</h2>
 Application requires NYTimes API key, which you can get for free from <a href="http://developer.nytimes.com/" target="_blank">here</a>.
