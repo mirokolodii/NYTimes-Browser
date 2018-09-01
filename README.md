@@ -6,6 +6,7 @@ Browser of NYTimes articles
 List articles from three categories: most emailed, most shared, most viewed:
 
 
+<img src="https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png" width="50%" />
 ![test image size](https://user-images.githubusercontent.com/23655108/44945527-aa3f6000-adeb-11e8-91ed-572bb8b148da.png){:width="50%"}
 
 
